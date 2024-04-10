@@ -1,0 +1,228 @@
+<div class="">
+  <div style="height:100vh;">
+
+   <div class="">
+    
+     <div class="shadow w-20 p-5 position-absolute top-50 start-50 translate-middle">
+       <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+         <h4 class="display-6 text-center py-2">User Database</h4>
+        <div class="">
+          <label for="U_id">User No </label>
+          <div class="">
+            <input id="U_id" required #U_id="ngModel" (ngModel)="U_id" name="U_id" type="text"  
+            class="form-control" placeholder="enter your User number" pattern="(^\d{9}$)">
+            <div *ngIf="U_id.invalid && U_id.touched">
+              <small class="text-danger" *ngIf="U_id.errors?.['required']">Required
+
+              </small>
+              <small class="text-danger" *ngIf="U_id.errors?.['pattern']">Must be a valid number
+              </small>
+
+            </div>
+            
+          </div>
+        </div><br>
+        <div class="">
+          <label for="U_name">Name </label>
+          <div class="">
+            <input id="U_name" required #U_name="ngModel" (ngModel)="U_name" name="U_name" type="text"  
+            class="form-control" placeholder="enter your name">
+            <div *ngIf="U_name.invalid && U_name.touched">
+              <small class="text-danger" *ngIf="U_name.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+        <div class="">
+          <label for="U_address">Address </label>
+          <div class="">
+            <input id="U_address" required #U_add="ngModel" (ngModel)="U_address" name="U_address" type="text"  
+            class="form-control" placeholder="enter your Address">
+            <div *ngIf="U_address.invalid && U_address.touched">
+              <small class="text-danger" *ngIf="U_address.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+      </div><br>
+        <div class="">
+          <label for="U_Contact">User contact</label>
+        <div class="">
+          <input id="U_Contact" required #U_Contact="ngModel" (ngModel)="U_Contact" name="U_Contact" type="text"  
+          class="form-control" placeholder="enter your User contact number" pattern="(^\d{10}$)">
+          <div *ngIf="U_Contact.invalid && U_Contact.touched">
+            <small class="text-danger" *ngIf="U_Contact.errors?.['required']">Required
+
+            </small>
+            <small class="text-danger" *ngIf="U_Contact.errors?.['pattern']">Must be a valid contact number
+            </small>
+
+          </div>
+        </div>
+      </div><br>
+        <div class="">
+          <label for="U_Email">Email</label>
+          <div class="">
+            <input id="U_Email" required #U_Email="ngModel" (ngModel)="U_Email" num="U_Email" type="text"  
+            class="form-control" placeholder="enter your Email">
+            <div *ngIf="U_Email.invalid &&U_Email.touched">
+              <small class="text-danger" *ngIf="U_Email  .errors?.['required']">Required
+              </small>
+            </div>
+
+          </div>
+        </div><br>
+        <div class="">
+          <label for="U_password">Password </label>
+          <div class="">
+            <input id="U_password" required #U_password="ngModel" (ngModel)="U_password" name="U_password" type="text"  
+            class="form-control" placeholder="enter your Password">
+            <div *ngIf="U_password.invalid && U_password.touched">
+              <small class="text-danger" *ngIf="U_password  .errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+  
+        <div class="form-group text-center">
+          <input class="btn btn-primary" type="submit" value="submit">
+        </div>
+      </form>
+     </div>
+   </div>
+</div><br>
+<div class="mt-5">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Contact</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userDetails">
+        <td>{{user.U_id}}</td>
+        <td>{{user.U_name}}</td>
+        <td>{{user.U_address}}</td>
+        <td>{{user.U_Contact}}</td>
+        <td>{{user.U_Email}}</td>
+        <td>{{user.U_password}}</td>
+        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(user)">Edit</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #updateForm="ngForm" (ngSubmit)="updateUser()">
+          <h4 class="display-6 text-center py-2">User Database</h4>
+         <div class="">
+           <label for="U_id">User ID </label>
+           <div class="">
+             <input id="U_id" required #U_id="ngModel" [(ngModel)]="userToUpdate.U_id" name="U_id" type="text"  
+             class="form-control" placeholder="enter your User number" pattern="(^\d{9}$)">
+             <div *ngIf="U_id.invalid && U_id.touched">
+               <small class="text-danger" *ngIf="U_id.errors?.['required']">Required
+ 
+               </small>
+               <small class="text-danger" *ngIf="U_id.errors?.['pattern']">Must be a valid number
+               </small>
+ 
+             </div>
+             
+           </div>
+         </div><br>
+         <div class="">
+           <label for="U_name">Name </label>
+           <div class="">
+             <input id="U_name" required #U_name="ngModel" [(ngModel)]="userToUpdate.U_name" name="U_name" type="text"  
+             class="form-control" placeholder="enter your name">
+             <div *ngIf="U_name.invalid && U_name.touched">
+               <small class="text-danger" *ngIf="U_name.errors?.['required']">Required
+               </small>
+             </div>
+             
+           </div>
+         </div><br>
+         <div class="">
+           <label for="U_address">Address </label>
+           <div class="">
+             <input id="U_address" required #U_address="ngModel" [(ngModel)]="userToUpdate.U_address" name="U_address" type="text"  
+             class="form-control" placeholder="enter your Address">
+             <div *ngIf="U_address.invalid && U_address.touched">
+               <small class="text-danger" *ngIf="U_address.errors?.['required']">Required
+               </small>
+             </div>
+             
+           </div>
+         </div><br>
+        
+         <div class="">
+          <label for="U_Contact">User contact </label>
+          <div class="">
+            <input id="U_Contact" required #U_Contact="ngModel" [(ngModel)]="userToUpdate.U_Contact" name="U_Contact" type="text"  
+            class="form-control" placeholder="enter your User contact number" pattern="(^\d{10}$)">
+            <div *ngIf="U_Contact.invalid && U_Contact.touched">
+              <small class="text-danger" *ngIf="U_id.errors?.['required']">Required
+
+              </small>
+              <small class="text-danger" *ngIf="U_Contact.errors?.['pattern']">Must be a valid contact number
+              </small>
+
+            </div>
+            
+          </div>
+        </div><br>
+
+          <div class="">
+            <label for="U_Email">  Email </label>
+            <div class="">
+              <input id="U_Email" required #U_Email="ngModel" [(ngModel)]="userToUpdate.U_Email" name="U_Email" type="text"  
+              class="form-control" placeholder="enter your Email">
+              <div *ngIf="U_Email.invalid && U_Email.touched">
+                <small class="text-danger" *ngIf="U_Email.errors?.['required']">Required
+                </small>
+              </div>
+
+           </div>
+         </div><br>
+         <div class="">
+          <label for="U_password">Password </label>
+          <div class="">
+            <input id="U_password" required #U_password="ngModel" [(ngModel)]="userToUpdate.U_password" name="U_password" type="text"  
+            class="form-control" placeholder="enter your Password">
+            <div *ngIf="U_password.invalid && U_password.touched">
+              <small class="text-danger" *ngIf="U_password.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+     
+         <div class="form-group text-center">
+           <input class="btn btn-primary" type="submit" value="update">
+         </div>
+       </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
